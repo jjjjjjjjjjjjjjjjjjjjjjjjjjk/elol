@@ -1,25 +1,37 @@
 <script>document.addEventListener('DOMContentLoaded', function () {
-    const form = document.getElementById('captcha-form');
-    if (!form) {
-      return;
-    }
+    // Your code here
 
-    const question = document.getElementById('question');
 
-    form.addEventListener('submit', function (event) {
-      event.preventDefault();
+    const question = document.getElementById("question");
+    const answer = document.getElementById("answer");
+    const submit = document.getElementById("submit");
+    const response = document.getElementById("response");
 
-      const answer = parseInt(document.getElementById('answer').value);
-      const num1 = Math.floor(Math.random() * 10);
-      const num2 = Math.floor(Math.random() * 10);
+    // Generate a random math question
+    const num1 = Math.floor(Math.random() * 10) + 1;
+    const num2 = Math.floor(Math.random() * 10) + 1;
+    question.innerText = `What is ${num1} + ${num2}?`;
 
-      if (answer === num1 + num2) {
+    let attempts = 0;
+    submit.addEventListener("click", function () {
+      if (answer.value == num1 + num2) {
+        response.innerText = "Correct!";
+        // Change the code on the site
+        // Add your code here
         const newContent = '<h1>CAPTCHA complete!</h1><p>The code on the site has been successfully changed.</p>';
-        document.body.innerHTML = newContent;
+document.body.innerHTML = newContent;
+
+      } else {
+        response.innerText = "Incorrect. Try again.";
+        attempts++;
       }
+      if (attempts >= 12) {
+        response.innerText = "Too many attempts. Try again later.";
+        submit.disabled = true;
+      }
+      answer.value = "";
     });
   });
-
 </script>
 <div id="captcha">
   <p>Answer the following question to prove you're a human:</p>
