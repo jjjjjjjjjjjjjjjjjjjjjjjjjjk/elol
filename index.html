@@ -1,0 +1,53 @@
+<script>document.addEventListener('DOMContentLoaded', function () {
+    const form = document.getElementById('captcha-form');
+    if (!form) {
+      return;
+    }
+
+    const question = document.getElementById('question');
+
+    form.addEventListener('submit', function (event) {
+      event.preventDefault();
+
+      const answer = parseInt(document.getElementById('answer').value);
+      const num1 = Math.floor(Math.random() * 10);
+      const num2 = Math.floor(Math.random() * 10);
+
+      if (answer === num1 + num2) {
+        const newContent = '<h1>CAPTCHA complete!</h1><p>The code on the site has been successfully changed.</p>';
+        document.body.innerHTML = newContent;
+      }
+    });
+  });
+
+</script>
+<div id="captcha">
+  <p>Answer the following question to prove you're a human:</p>
+  <p id="question"></p>
+  <input type="text" id="answer" placeholder="Your answer">
+  <button id="submit">Submit</button>
+  <p id="response"></p>
+</div>
+<style>
+  #captcha {
+    width: 50%;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  #answer {
+    width: 50%;
+    padding: 5px;
+    margin-top: 10px;
+  }
+
+  #submit {
+    margin-top: 10px;
+    padding: 5px;
+  }
+
+  #response {
+    margin-top: 10px;
+    font-weight: bold;
+  }
+</style>
